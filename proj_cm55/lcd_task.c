@@ -6,33 +6,33 @@
 * Related Document : See README.md
 *
 ********************************************************************************
- * (c) 2025, Infineon Technologies AG, or an affiliate of Infineon
- * Technologies AG. All rights reserved.
- * This software, associated documentation and materials ("Software") is
- * owned by Infineon Technologies AG or one of its affiliates ("Infineon")
- * and is protected by and subject to worldwide patent protection, worldwide
- * copyright laws, and international treaty provisions. Therefore, you may use
- * this Software only as provided in the license agreement accompanying the
- * software package from which you obtained this Software. If no license
- * agreement applies, then any use, reproduction, modification, translation, or
- * compilation of this Software is prohibited without the express written
- * permission of Infineon.
- *
- * Disclaimer: UNLESS OTHERWISE EXPRESSLY AGREED WITH INFINEON, THIS SOFTWARE
- * IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
- * INCLUDING, BUT NOT LIMITED TO, ALL WARRANTIES OF NON-INFRINGEMENT OF
- * THIRD-PARTY RIGHTS AND IMPLIED WARRANTIES SUCH AS WARRANTIES OF FITNESS FOR A
- * SPECIFIC USE/PURPOSE OR MERCHANTABILITY.
- * Infineon reserves the right to make changes to the Software without notice.
- * You are responsible for properly designing, programming, and testing the
- * functionality and safety of your intended application of the Software, as
- * well as complying with any legal requirements related to its use. Infineon
- * does not guarantee that the Software will be free from intrusion, data theft
- * or loss, or other breaches ("Security Breaches"), and Infineon shall have
- * no liability arising out of any Security Breaches. Unless otherwise
- * explicitly approved by Infineon, the Software may not be used in any
- * application where a failure of the Product or any consequences of the use
- * thereof can reasonably be expected to result in personal injury.
+* (c) 2025-2026, Infineon Technologies AG, or an affiliate of Infineon
+* Technologies AG. All rights reserved.
+* This software, associated documentation and materials ("Software") is
+* owned by Infineon Technologies AG or one of its affiliates ("Infineon")
+* and is protected by and subject to worldwide patent protection, worldwide
+* copyright laws, and international treaty provisions. Therefore, you may use
+* this Software only as provided in the license agreement accompanying the
+* software package from which you obtained this Software. If no license
+* agreement applies, then any use, reproduction, modification, translation, or
+* compilation of this Software is prohibited without the express written
+* permission of Infineon.
+*
+* Disclaimer: UNLESS OTHERWISE EXPRESSLY AGREED WITH INFINEON, THIS SOFTWARE
+* IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+* INCLUDING, BUT NOT LIMITED TO, ALL WARRANTIES OF NON-INFRINGEMENT OF
+* THIRD-PARTY RIGHTS AND IMPLIED WARRANTIES SUCH AS WARRANTIES OF FITNESS FOR A
+* SPECIFIC USE/PURPOSE OR MERCHANTABILITY.
+* Infineon reserves the right to make changes to the Software without notice.
+* You are responsible for properly designing, programming, and testing the
+* functionality and safety of your intended application of the Software, as
+* well as complying with any legal requirements related to its use. Infineon
+* does not guarantee that the Software will be free from intrusion, data theft
+* or loss, or other breaches ("Security Breaches"), and Infineon shall have
+* no liability arising out of any Security Breaches. Unless otherwise
+* explicitly approved by Infineon, the Software may not be used in any
+* application where a failure of the Product or any consequences of the use
+* thereof can reasonably be expected to result in personal injury.
 *******************************************************************************/
 
 /*******************************************************************************
@@ -151,7 +151,7 @@
 /* Color values for bounding boxes */
 #define COLOR_RED_R                         (227U)
 #define COLOR_RED_G                         (66U)
-#define COLOR_RED_B                         (52U)
+#define COLOR_RED_B                         (24U)
 #define COLOR_BLUE_R                        (8U)
 #define COLOR_BLUE_G                        (24U)
 #define COLOR_BLUE_B                        (168U)
@@ -578,7 +578,7 @@ void update_bounding_box_data( vg_lite_buffer_t *renderTarget, prediction_OD_t  
     {
         int32_t jj = i << VALUE_TWO;
         int32_t id = prediction->class_id[i];
-        int32_t cid = (id >= INITIAL_VAL) ? (id % COLOR_COUNT) : COLOR_GREEN_INDEX;
+        int32_t cid = (id >= INITIAL_VAL) ? ((id % VALUE_THREE) + VALUE_ONE) : COLOR_GREEN_INDEX;
 
         uint32_t xmin = (uint32_t)( prediction->bbox_int16[jj]     * scale_Cam2Disp ) + display_offset_x;
         uint32_t ymin = (uint32_t)( prediction->bbox_int16[jj + VALUE_ONE] * scale_Cam2Disp ) + display_offset_y;
@@ -600,7 +600,7 @@ void update_bounding_box_data( vg_lite_buffer_t *renderTarget, prediction_OD_t  
 
         ifx_lcd_draw_Rect(xmin, ymin, xmax, ymax);
 
-        if (id >= INITIAL_VAL)
+        if ((id >= INITIAL_VAL) && (cid < COLOR_COUNT))
         {
             ifx_set_bg_color((color_r[cid] << COLOR_SHIFT_RED) | (color_g[cid] << COLOR_SHIFT_GREEN) | color_b[cid]);
             ifx_print_to_buffer(xmin + GUI_TEXT_X_OFFSET, ymin - GUI_TEXT_Y_OFFSET, "%s, %.2f", CLASS_STRING_LIST[id], 
@@ -984,6 +984,9 @@ void cm55_ns_gfx_task(void *arg)
 
     /* Enable the I2C */
     Cy_SCB_I2C_Enable(CYBSP_I2C_CONTROLLER_HW);
+
+    /* Allow I2C to be stabalized to initialize the display */
+    Cy_SysLib_Delay(200);
 
     i2c_result = mtb_disp_waveshare_4p3_init(CYBSP_I2C_CONTROLLER_HW,
                                              &i2c_controller_context);
