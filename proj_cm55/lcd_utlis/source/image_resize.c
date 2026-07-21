@@ -1183,6 +1183,7 @@ static int is_in_image_rect( float warpMtx[][3], int imgWidth, int imgHeight, in
 *  void
 *
 ******************************************************************************/
+#if defined(ARM_MATH_MVEI) && !defined(__COVERITY__)
 void ifx_image_resize_Matrix_u2i_in_Rect( uint8_t *srcImage, int imgWidth, int imgHeight, int imgCh,
         int8_t *subImage, int dstWidth, int dstHeight,
         float warpMtx[][3], int zero_point )
@@ -1213,6 +1214,7 @@ void ifx_image_resize_Matrix_u2i_in_Rect( uint8_t *srcImage, int imgWidth, int i
         vfy0 = vaddq_s32( vfy0, vdy_y );    /* imcrement in Y by Y-inc */
     }
 }
+#endif  /* ARM_MATH_MVEI && !__COVERITY__ */
 
 
 CY_SECTION_ITCM_BEGIN
@@ -1240,6 +1242,7 @@ CY_SECTION_ITCM_BEGIN
 *  void
 *
 ******************************************************************************/
+#if defined(ARM_MATH_MVEI) && !defined(__COVERITY__)
 void ifx_image_resize_Matrix_u2i( uint8_t *srcImage, int imgWidth, int imgHeight, int imgCh,
         int8_t *subImage, int dstWidth, int dstHeight,
         float warpMtx[][3], int zero_point )
@@ -1287,6 +1290,7 @@ void ifx_image_resize_Matrix_u2i( uint8_t *srcImage, int imgWidth, int imgHeight
         vfy0 = vaddq_s32( vfy0, vdy_y );    /* imcrement in Y by Y-inc */
     }
 }
+#endif  /* ARM_MATH_MVEI && !__COVERITY__ */
 CY_SECTION_ITCM_END
 
 

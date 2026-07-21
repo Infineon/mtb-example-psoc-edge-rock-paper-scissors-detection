@@ -205,6 +205,7 @@ static void cb_Onadd_remove_device ( void *pContext, U8 DevIndex, USBH_DEVICE_EV
 
             break;
          case USBH_DEVICE_EVENT_REMOVE :
+         {
             _device_connected = USB_DEVICE_DISCONNECTED;
             USBH_Logf_Application("**** VIDEO Device removed [%d]\n", DevIndex);
 
@@ -222,6 +223,7 @@ static void cb_Onadd_remove_device ( void *pContext, U8 DevIndex, USBH_DEVICE_EV
             xSemaphoreGive(model_semaphore);
             stream_err_cnt = INITIAL_VAL;
             break;
+         }
         default :
             break; /* Should never happen */
     }

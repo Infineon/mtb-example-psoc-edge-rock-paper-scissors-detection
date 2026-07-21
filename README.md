@@ -24,7 +24,7 @@ This code example supports the following MIPI DSI display and USB cameras:
 
 [View this README on GitHub.](https://github.com/Infineon/mtb-example-psoc-edge-rock-paper-scissors-detection)
 
-[Provide feedback on this code example.](https://yourvoice.infineon.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyNDIzNzgiLCJTcGVjIE51bWJlciI6IjAwMi00MjM3OCIsIkRvYyBUaXRsZSI6IlBTT0MmdHJhZGU7IEVkZ2UgTUNVOiBERUVQQ1JBRlQmdHJhZGU7IC0gUm9jayBQYXBlciBTY2lzc29ycyBkZXRlY3Rpb24iLCJyaWQiOiJtb2hhbmt1bWFyLnJhbWFrcmlzaG5hcGFkbWFAaW5maW5lb24uY29tIiwiRG9jIHZlcnNpb24iOiIxLjEuMCIsIkRvYyBMYW5ndWFnZSI6IkVuZ2xpc2giLCJEb2MgRGl2aXNpb24iOiJNQ0QiLCJEb2MgQlUiOiJJQ1ciLCJEb2MgRmFtaWx5IjoiUFNPQyJ9)
+[Provide feedback on this code example.](https://yourvoice.infineon.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyNDIzNzgiLCJTcGVjIE51bWJlciI6IjAwMi00MjM3OCIsIkRvYyBUaXRsZSI6IlBTT0MmdHJhZGU7IEVkZ2UgTUNVOiBERUVQQ1JBRlQmdHJhZGU7IC0gUm9jayBQYXBlciBTY2lzc29ycyBkZXRlY3Rpb24iLCJyaWQiOiJtb2hhbmt1bWFyLnJhbWFrcmlzaG5hcGFkbWFAaW5maW5lb24uY29tIiwiRG9jIHZlcnNpb24iOiIxLjEuMSIsIkRvYyBMYW5ndWFnZSI6IkVuZ2xpc2giLCJEb2MgRGl2aXNpb24iOiJNQ0QiLCJEb2MgQlUiOiJJQ1ciLCJEb2MgRmFtaWx5IjoiUFNPQyJ9)
 
 See the [Design and implementation](docs/design_and_implementation.md) for the functional description of this code example.
 
@@ -165,6 +165,7 @@ Document title: *CE242378* – *PSOC&trade; Edge MCU: DEEPCRAFT&trade; - Rock Pa
  ------- | ---------------------
  1.0.0   | GitHub release
  1.1.0   | Updated design files to fix ModusToolbox&trade; v3.7 build warnings
+ 1.1.1   | Fixed Coverity warnings
 <br>
 
 

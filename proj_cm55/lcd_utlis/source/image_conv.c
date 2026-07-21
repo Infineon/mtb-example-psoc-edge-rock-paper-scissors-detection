@@ -314,7 +314,7 @@ int8_t * ifx_pixel_2_RGB565_to_RGB888_u2i( uint32_t rgb565, int8_t *rgb888, int3
     return rgb888;
 }
 
-#ifdef ARM_MATH_MVEI
+#if defined(ARM_MATH_MVEI) && !defined(__COVERITY__)
 
 #define get_write_RGB(src)    \
             *rgb888_16p++ = (uint16_t)vgetq_lane_u16( RG, src );      \
@@ -603,7 +603,7 @@ void ifx_image_conv_RGB565_to_RGB888_u2i( uint8_t *src_bgr565, int32_t width, in
     }
 }
 
-#endif  /* ARM_MATH_MVEI */
+#endif  /* ARM_MATH_MVEI && !__COVERITY__ */
 
 
 /******************************************************************************
